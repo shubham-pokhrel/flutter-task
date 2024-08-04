@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
 
 void main() {
   runApp(MyPostViewerApp());
@@ -12,14 +13,7 @@ class MyPostViewerApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('My Post Viewer'),
-        ),
-        body: Center(
-          child: Text('Blank Screen'),
-        ),
-      ),
+      home: HomeScreen(),
     );
   }
 }
