@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_postviewer/models/post.dart';
 import 'package:my_postviewer/models/comment.dart';
+import 'package:my_postviewer/screens/add_comment_screen.dart';
 import 'package:my_postviewer/api_services/api_service.dart';
 
 class PostDetailsScreen extends StatefulWidget {
@@ -54,10 +55,27 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                   SizedBox(height: 8),
                   Text(post.body),
                   SizedBox(height: 20),
-                  Text(
-                    'Comments',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Comments',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddCommentScreen(postId: widget.postId),
+                            ),
+                          );
+                        },
+                        child: Text('Add Comment'),
+                      ),
+                    ],
                   ),
+                  SizedBox(height: 20),
                   Expanded(
                     child: FutureBuilder<List<Comment>>(
                       future: _commentsFuture,
