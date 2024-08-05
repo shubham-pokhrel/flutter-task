@@ -4,8 +4,9 @@ import 'dart:convert';
 
 class AddCommentScreen extends StatefulWidget {
   final int postId;
+  final VoidCallback onCommentAdded;
 
-  AddCommentScreen({required this.postId});
+  AddCommentScreen({required this.postId, required this.onCommentAdded});
 
   @override
   _AddCommentScreenState createState() => _AddCommentScreenState();
@@ -21,16 +22,27 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
     if (_formKey.currentState!.validate()) {
       final response = await http.post(
         Uri.parse('https://jsonplaceholder.typicode.com/posts/${widget.postId}/comments'),
-        body: {
-          'postId': widget.postId.toString(),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          'postId': widget.postId,
           'name': _nameController.text,
           'email': _emailController.text,
           'body': _bodyController.text,
-        },
+        }),
       );
 
       if (response.statusCode == 201) {
-        Navigator.pop(context);
+        widget.onCommentAdded(); // Notify the parent widget
+        Navigator.pop(context, true); // Return true to indicate success
+        //print success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Comment added successfully for post ${widget.postId}'),
+            duration: Duration(seconds: 2),
+          ),
+        );
       } else {
         throw Exception('Failed to add comment');
       }

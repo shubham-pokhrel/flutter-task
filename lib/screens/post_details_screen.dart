@@ -24,6 +24,29 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
     _commentsFuture = ApiService().fetchComments(widget.postId);
   }
 
+  Future<void> _refreshComments() async {
+    setState(() {
+      _commentsFuture = ApiService().fetchComments(widget.postId);
+    });
+  }
+
+  Future<void> _navigateToAddCommentScreen() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddCommentScreen(
+          postId: widget.postId,
+          onCommentAdded: _refreshComments, // Pass the callback function
+        ),
+      ),
+    );
+
+    // If result is true, refresh comments
+    if (result == true) {
+      _refreshComments();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,43 +86,47 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddCommentScreen(postId: widget.postId),
-                            ),
-                          );
-                        },
+                        onPressed: _navigateToAddCommentScreen,
                         child: Text('Add Comment'),
                       ),
                     ],
                   ),
                   SizedBox(height: 20),
                   Expanded(
-                    child: FutureBuilder<List<Comment>>(
-                      future: _commentsFuture,
-                      builder: (context, commentsSnapshot) {
-                        if (commentsSnapshot.connectionState == ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
-                        } else if (commentsSnapshot.hasError) {
-                          return Center(child: Text('Failed to load comments'));
-                        } else if (!commentsSnapshot.hasData || commentsSnapshot.data!.isEmpty) {
-                          return Center(child: Text('No comments available'));
-                        } else {
-                          final comments = commentsSnapshot.data!;
-                          return ListView.builder(
-                            itemCount: comments.length,
-                            itemBuilder: (context, index) {
-                              final comment = comments[index];
-                              return ListTile(
-                                title: Text(comment.name),
-                                subtitle: Text(comment.body),
-                              );
-                            },
-                          );
-                        }
-                      },
+                    child: RefreshIndicator(
+                      onRefresh: _refreshComments,
+                      child: FutureBuilder<List<Comment>>(
+                        future: _commentsFuture,
+                        builder: (context, commentsSnapshot) {
+                          if (commentsSnapshot.connectionState == ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (commentsSnapshot.hasError) {
+                            return Center(child: Text('Failed to load comments'));
+                          } else if (!commentsSnapshot.hasData || commentsSnapshot.data!.isEmpty) {
+                            return Center(child: Text('No comments available'));
+                          } else {
+                            final comments = commentsSnapshot.data!;
+                            return ListView.builder(
+                              itemCount: comments.length,
+                              itemBuilder: (context, index) {
+                                final comment = comments[index];
+                                return Card(
+                                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                                  elevation: 4.0,
+                                  child: ListTile(
+                                    contentPadding: EdgeInsets.all(16.0),
+                                    title: Text(
+                                      comment.name,
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    subtitle: Text(comment.body),
+                                  ),
+                                );
+                              },
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ],
