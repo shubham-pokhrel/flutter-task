@@ -21,26 +21,46 @@ class _UserListScreenState extends State<UserListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Users List'),
+        backgroundColor: Colors.teal, 
       ),
-      body: Center(
+      body: Padding(
+        padding: EdgeInsets.all(16.0), // padding for  body
         child: FutureBuilder<List<User>>(
           future: futureUsers,
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Center(child: Text("No users found"));
+            } else {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(snapshot.data![index].name),
-                    subtitle: Text(snapshot.data![index].email),
-                    
+                  final user = snapshot.data![index];
+                  return Card(
+                    margin: EdgeInsets.symmetric(vertical: 8.0),
+                    elevation: 4.0,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.all(16.0),
+                      title: Text(
+                        user.name,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(user.email),
+                      trailing: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(user.email, style: TextStyle(color: Colors.grey)),  //email 
+                          SizedBox(height: 4.0),
+                        ],
+                      ),
+                    ),
                   );
                 },
               );
-            } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
             }
-            return CircularProgressIndicator();
           },
         ),
       ),

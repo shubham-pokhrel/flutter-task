@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:my_postviewer/models/post.dart';
 import 'package:my_postviewer/models/comment.dart';
+import 'package:my_postviewer/models/user.dart';
 
 class ApiService {
   static const String _baseUrl = 'https://jsonplaceholder.typicode.com';
@@ -54,3 +55,15 @@ class ApiService {
     }
   }
 }
+
+Future<List<User>> fetchUsers() async {
+  final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+
+  if (response.statusCode == 200) {
+    List jsonResponse = json.decode(response.body);
+    return jsonResponse.map((user) => User.fromJson(user)).toList();
+  } else {
+    throw Exception('Failed to load users');
+  }
+}
+
