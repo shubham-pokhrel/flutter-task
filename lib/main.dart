@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:my_postviewer/providers/app_state.dart';
+import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 
 void main() {
-  runApp(MyPostViewerApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AppState()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyPostViewerApp extends StatelessWidget {
+
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My Post Viewer',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
       home: HomeScreen(),
     );
