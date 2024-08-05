@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:my_postviewer/models/album.dart';
 import 'package:my_postviewer/models/post.dart';
 import 'package:my_postviewer/models/comment.dart';
+import 'package:my_postviewer/models/todo.dart';
 import 'package:my_postviewer/models/user.dart';
 
 class ApiService {
@@ -54,16 +56,69 @@ class ApiService {
       throw Exception('Error: $e');
     }
   }
-}
 
-Future<List<User>> fetchUsers() async {
-  final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+  // Fetches a list of users
+  Future<List<User>> fetchUsers() async {
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl/users'));
 
-  if (response.statusCode == 200) {
-    List jsonResponse = json.decode(response.body);
-    return jsonResponse.map((user) => User.fromJson(user)).toList();
-  } else {
-    throw Exception('Failed to load users');
+      if (response.statusCode == 200) {
+        List<dynamic> body = json.decode(response.body);
+        List<User> users = body.map((dynamic item) => User.fromJson(item)).toList();
+        return users;
+      } else {
+        throw Exception('Failed to load users');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  // Fetches posts for a specific user
+  Future<List<Post>> fetchUserPosts(int userId) async {
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl/users/$userId/posts'));
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonResponse = json.decode(response.body);
+        return jsonResponse.map((post) => Post.fromJson(post)).toList();
+      } else {
+        throw Exception('Failed to load posts');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  // Fetches albums for a specific user
+  Future<List<Album>> fetchUserAlbums(int userId) async {
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl/users/$userId/albums'));
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonResponse = json.decode(response.body);
+        return jsonResponse.map((album) => Album.fromJson(album)).toList();
+      } else {
+        throw Exception('Failed to load albums');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  // Fetches todos for a specific user
+  Future<List<Todo>> fetchUserTodos(int userId) async {
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl/users/$userId/todos'));
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonResponse = json.decode(response.body);
+        return jsonResponse.map((todo) => Todo.fromJson(todo)).toList();
+      } else {
+        throw Exception('Failed to load todos');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
   }
 }
-

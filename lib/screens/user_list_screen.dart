@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_postviewer/models/user.dart';
 import 'package:my_postviewer/api_services/api_service.dart';
+import 'package:my_postviewer/screens/user_detail_screen.dart';  // Import the UserDetailScreen
 
 class UserListScreen extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _UserListScreenState extends State<UserListScreen> {
   @override
   void initState() {
     super.initState();
-    futureUsers = fetchUsers();
+    futureUsers = ApiService().fetchUsers(); // Fetch users from ApiService
   }
 
   @override
@@ -21,10 +22,10 @@ class _UserListScreenState extends State<UserListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Users List'),
-        backgroundColor: Colors.teal, 
+        backgroundColor: Colors.teal,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0), // padding for  body
+        padding: EdgeInsets.all(16.0), // Padding for body
         child: FutureBuilder<List<User>>(
           future: futureUsers,
           builder: (context, snapshot) {
@@ -52,10 +53,19 @@ class _UserListScreenState extends State<UserListScreen> {
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(user.email, style: TextStyle(color: Colors.grey)),  //email 
+                          Text(user.email, style: TextStyle(color: Colors.grey)),  // Email
                           SizedBox(height: 4.0),
                         ],
                       ),
+                      onTap: () {
+                        // Navigate to UserDetailScreen on tap
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserDetailScreen(user: user),
+                          ),
+                        );
+                      },
                     ),
                   );
                 },
