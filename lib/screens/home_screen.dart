@@ -47,10 +47,18 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: Text('Go to User List'),
               ),
+             
             ],
+            
           ),
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+          child: Container(
+            height: 50,
+            padding: EdgeInsets.all(13.0),
+            child: Text('Designed By Shubham Pokhrel', textAlign: TextAlign.center),),
+        ),
     );
   }
 }
