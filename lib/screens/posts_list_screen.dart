@@ -88,16 +88,20 @@ class _PostsListScreenState extends State<PostsListScreen> {
                       itemCount: _filteredPosts.length,
                       itemBuilder: (context, index) {
                         final post = _filteredPosts[index];
-                        return ListTile(
-                          title: Text(post.title),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PostDetailsScreen(postId: post.id),
-                              ),
-                            );
-                          },
+                        return Card(
+                          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                          child: ListTile(
+                            title: Text(post.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                            subtitle: Text(post.body, maxLines: 1, overflow: TextOverflow.ellipsis),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PostDetailsScreen(postId: post.id),
+                                ),
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
