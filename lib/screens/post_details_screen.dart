@@ -31,6 +31,8 @@ class PostDetailsScreen extends StatelessWidget {
                 children: [
                   Text(post.title, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   SizedBox(height: 8),
+                  Text('User ID: ${post.userId}', style: TextStyle(fontSize: 16)),
+                  SizedBox(height: 8),
                   Text(post.body),
                 ],
               ),
