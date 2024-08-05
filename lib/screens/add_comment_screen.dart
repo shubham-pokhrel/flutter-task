@@ -21,7 +21,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
   Future<void> _addComment() async {
     if (_formKey.currentState!.validate()) {
       final response = await http.post(
-        Uri.parse('https://jsonplaceholder.typicode.com/posts/${widget.postId}/comments'),
+        Uri.parse('https://jsonplaceholder.typicode.com/comments'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -36,15 +36,24 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
       if (response.statusCode == 201) {
         widget.onCommentAdded(); // Notify the parent widget
         Navigator.pop(context, true); // Return true to indicate success
-        //print success message
+
+        // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Comment added successfully for post ${widget.postId}'),
+            content: Text('Comment added successfully'),
             duration: Duration(seconds: 2),
+            backgroundColor: Colors.teal, // Consistent background color for snack bar
           ),
         );
       } else {
-        throw Exception('Failed to add comment');
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to add comment'),
+            duration: Duration(seconds: 2),
+            backgroundColor: Colors.red, // Error message color
+          ),
+        );
       }
     }
   }
@@ -54,16 +63,31 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Comment'),
+        backgroundColor: Colors.teal, // Consistent color for the app bar
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                'Add your comment below:',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal, // Consistent text color
+                ),
+              ),
+              SizedBox(height: 16),
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.person),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your name';
@@ -71,9 +95,14 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                   return null;
                 },
               ),
+              SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.email),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
@@ -81,9 +110,14 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                   return null;
                 },
               ),
+              SizedBox(height: 16),
               TextFormField(
                 controller: _bodyController,
-                decoration: InputDecoration(labelText: 'Comment'),
+                decoration: InputDecoration(
+                  labelText: 'Comment',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.comment),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your comment';
@@ -91,10 +125,14 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _addComment,
-                child: Text('Submit'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:  Color.fromARGB(255, 163, 182, 184), // Consistent button color
+                  padding: EdgeInsets.symmetric(vertical: 14.0),
+                ),
+                child: Text('Submit', style: TextStyle(fontSize: 16)),
               ),
             ],
           ),

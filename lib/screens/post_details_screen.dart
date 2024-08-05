@@ -52,6 +52,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Post Details'),
+        backgroundColor: Colors.teal, // Consistent color for the app bar
       ),
       body: FutureBuilder<Post>(
         future: _postFuture,
@@ -71,23 +72,40 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 children: [
                   Text(
                     post.title,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.teal, // Title text color
+                    ),
                   ),
                   SizedBox(height: 8),
-                  Text('User ID: ${post.userId}', style: TextStyle(fontSize: 16)),
+                  Text(
+                    'User ID: ${post.userId}',
+                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                  ),
                   SizedBox(height: 8),
-                  Text(post.body),
+                  Text(
+                    post.body,
+                    style: TextStyle(color: Colors.black87),
+                  ),
                   SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Comments',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.teal, // Comments section title color
+                        ),
                       ),
                       ElevatedButton(
                         onPressed: _navigateToAddCommentScreen,
-                        child: Text('Add Comment'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 163, 182, 184), // Button color
+                        ),
+                        child: Text('Add Comment') ,
                       ),
                     ],
                   ),
@@ -111,15 +129,21 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                               itemBuilder: (context, index) {
                                 final comment = comments[index];
                                 return Card(
-                                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                                   elevation: 4.0,
                                   child: ListTile(
                                     contentPadding: EdgeInsets.all(16.0),
                                     title: Text(
                                       comment.name,
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.teal, // Comment name color
+                                      ),
                                     ),
-                                    subtitle: Text(comment.body),
+                                    subtitle: Text(
+                                      comment.body,
+                                      style: TextStyle(color: Colors.black87), // Comment body color
+                                    ),
                                   ),
                                 );
                               },

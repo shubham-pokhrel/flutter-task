@@ -10,6 +10,10 @@
 .svn/
 migrate_working_dir/
 
+#demo code
+/lib/screens/demo.dart
+/lib/screens/demo2.dart
+
 # IntelliJ related
 *.iml
 *.ipr
