@@ -39,9 +39,9 @@ class ApiService {
   }
 
   // Fetches comments for a specific post
-  Future<List<Comment>> fetchComments(int postId) async {
+  Future<List<Comment>> fetchComments(int id) async {
     try {
-      final response = await http.get(Uri.parse('$_baseUrl/posts/$postId/comments'));
+      final response = await http.get(Uri.parse('$_baseUrl/posts/$id/comments'));
 
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = json.decode(response.body);
