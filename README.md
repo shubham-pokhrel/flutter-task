@@ -23,8 +23,8 @@ Follow these steps to get a copy of the project and run it on your local machine
 
 bash
 ~~~
-git clone https://github.com/yourusername/my_postviewer.git
-cd my_postviewer
+git clone https://github.com/shubham-pokhrel/flutter-task.git
+cd flutter-task
 ~~~
 
 ### Install dependencies:
