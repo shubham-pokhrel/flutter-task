@@ -17,6 +17,12 @@ class _PostsListScreenState extends State<PostsListScreen> {
     futurePosts = ApiService().fetchPosts();
   }
 
+  Future<void> _refreshPosts() async {
+    setState(() {
+      futurePosts = ApiService().fetchPosts();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,22 +39,25 @@ class _PostsListScreenState extends State<PostsListScreen> {
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text('No posts found'));
           } else {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final post = snapshot.data![index];
-                return ListTile(
-                  title: Text(post.title),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PostDetailsScreen(postId: post.id),
-                      ),
-                    );
-                  },
-                );
-              },
+            return RefreshIndicator(
+              onRefresh: _refreshPosts,
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  final post = snapshot.data![index];
+                  return ListTile(
+                    title: Text(post.title),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PostDetailsScreen(postId: post.id),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             );
           }
         },
