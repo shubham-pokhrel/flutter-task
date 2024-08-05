@@ -39,6 +39,35 @@ flutter pub get
 flutter run
 ~~~
 
+## Features
+1. View a list of posts.
+2. Detailed view of each post with comments.
+3. Seperate Comment adding screen to post comments.
+4. View a list of users.
+5. Detailed view of each user including their posts, albums, and todos.
+6. Responsive UI for different screen sizes.
+7. Smooth animations for better user interaction.
+
+
+## Screenshots
+
+1. Home Screen
+   ![Alt text](https://github.com/shubham-pokhrel/flutter-task/blob/main/app_ss/home_screen.png "Home Screen")
+2. Post List Screen
+   ![Alt text](https://github.com/shubham-pokhrel/flutter-task/blob/main/app_ss/post_list.png "Post List Screen")
+3. Post Detail Screen
+   ![Alt text](https://github.com/shubham-pokhrel/flutter-task/blob/main/app_ss/post_details.png "Post Detail Screen")
+4. Add Comment Screen
+   ![Alt text](https://github.com/shubham-pokhrel/flutter-task/blob/main/app_ss/add_comment.png "Add Comment Screen")
+5. User List Screen
+   ![Alt text](https://github.com/shubham-pokhrel/flutter-task/blob/main/app_ss/user_list.png "User List Screen")
+6. User Post Screen
+   ![Alt text](https://github.com/shubham-pokhrel/flutter-task/blob/main/app_ss/user_posts.png "User Post Screen")
+7. User Album Screen
+   ![Alt text](https://github.com/shubham-pokhrel/flutter-task/blob/main/app_ss/user_albums.png "User Album Screen")
+8. User Todo Screen
+   ![Alt text](https://github.com/shubham-pokhrel/flutter-task/blob/main/app_ss/user_todo.png "User Todo Screen")
+
 ## Usage
 
 1. On launching the app, you will see a list of posts.
