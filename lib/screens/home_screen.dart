@@ -3,16 +3,18 @@ import 'package:my_postviewer/screens/user_list_screen.dart';
 import 'posts_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Post Viewer'),
+        title: const Text('Post Viewer'),
         backgroundColor: Colors.teal, // Minimalistic color for the app bar
       ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(16.0), // Add padding around the body
+          padding: const EdgeInsets.all(16.0), // Add padding around the body
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -21,7 +23,7 @@ class HomeScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PostsListScreen(),
+                      builder: (context) => const PostsListScreen(),
                     ),
                   );
                 },
@@ -29,15 +31,15 @@ class HomeScreen extends StatelessWidget {
                   backgroundColor: Colors.teal, // Button background color
                   foregroundColor: Colors.white, // Button text color
                 ),
-                child: Text('Go to Posts List'),
+                child: const Text('Go to Posts List'),
               ),
-              SizedBox(height: 16.0), // Add space between buttons
+              const SizedBox(height: 16.0), // Add space between buttons
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UserListScreen(),
+                      builder: (context) => const UserListScreen(),
                     ),
                   );
                 },
@@ -45,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                   backgroundColor: Colors.teal, // Button background color
                   foregroundColor: Colors.white, // Button text color
                 ),
-                child: Text('Go to User List'),
+                child: const Text('Go to User List'),
               ),
              
             ],
@@ -56,8 +58,8 @@ class HomeScreen extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
           child: Container(
             height: 50,
-            padding: EdgeInsets.all(13.0),
-            child: Text('Designed By Shubham Pokhrel', textAlign: TextAlign.center),),
+            padding: const EdgeInsets.all(13.0),
+            child: const Text('Designed By Shubham Pokhrel', textAlign: TextAlign.center),),
         ),
     );
   }
