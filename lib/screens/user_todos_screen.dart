@@ -5,7 +5,7 @@ import 'package:my_postviewer/api_services/api_service.dart';
 class UserTodosScreen extends StatelessWidget {
   final int userId;
 
-  UserTodosScreen({required this.userId});
+  const UserTodosScreen({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +18,16 @@ class UserTodosScreen extends StatelessWidget {
         future: ApiService().fetchUserTodos(userId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(
               child: Text(
                 'Error: ${snapshot.error}',
-                style: TextStyle(color: Colors.red), // Error message color
+                style: const TextStyle(color: Colors.red), // Error message color
               ),
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(
+            return const Center(
               child: Text(
                 'No todos found',
                 style: TextStyle(color: Colors.teal), // text color
@@ -39,14 +39,14 @@ class UserTodosScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final todo = snapshot.data![index];
                 return Card(
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   elevation: 4,
                   //color: Color.fromARGB(255, 240, 240, 240), 
                   child: ListTile(
-                    contentPadding: EdgeInsets.all(16.0),
+                    contentPadding: const EdgeInsets.all(16.0),
                     title: Text(
                       todo.title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.teal, // Consistent text color
                       ),

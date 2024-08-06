@@ -7,7 +7,7 @@ import 'package:my_postviewer/screens/user_todos_screen.dart';
 class UserDetailScreen extends StatelessWidget {
   final User user;
 
-  UserDetailScreen({required this.user});
+  const UserDetailScreen({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class UserDetailScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(user.name),
-          bottom: TabBar(
+          bottom: const TabBar(
             tabs: [
               Tab(text: "Posts"),
               Tab(text: "Albums"),

@@ -6,14 +6,14 @@ import 'package:my_postviewer/screens/post_details_screen.dart'; // Import PostD
 class UserPostsScreen extends StatefulWidget {
   final int userId;
 
-  UserPostsScreen({required this.userId});
+  const UserPostsScreen({super.key, required this.userId});
 
   @override
   _UserPostsScreenState createState() => _UserPostsScreenState();
 }
 
 class _UserPostsScreenState extends State<UserPostsScreen> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   List<Post> _allPosts = [];
   List<Post> _filteredPosts = [];
 
@@ -67,7 +67,7 @@ class _UserPostsScreenState extends State<UserPostsScreen> {
             padding: const EdgeInsets.all(16.0),
             child: TextField(
               controller: _searchController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Search',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.search, color: Colors.teal),
@@ -84,14 +84,14 @@ class _UserPostsScreenState extends State<UserPostsScreen> {
                 itemBuilder: (context, index) {
                   final post = _filteredPosts[index];
                   return Card(
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                               vertical: 8, horizontal: 16),
                           elevation: 4.0, // Elevation for card shadow
                           child: ListTile(
-                            contentPadding: EdgeInsets.all(16.0),
+                            contentPadding: const EdgeInsets.all(16.0),
                             title: Text(
                               post.title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.teal, // Text color
                               ),

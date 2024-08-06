@@ -6,7 +6,7 @@ class AddCommentScreen extends StatefulWidget {
   final int postId;
   final VoidCallback onCommentAdded;
 
-  AddCommentScreen({required this.postId, required this.onCommentAdded});
+  const AddCommentScreen({super.key, required this.postId, required this.onCommentAdded});
 
   @override
   _AddCommentScreenState createState() => _AddCommentScreenState();
@@ -39,7 +39,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
 
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Comment added successfully'),
             duration: Duration(seconds: 2),
             backgroundColor: Colors.teal, // Consistent background color for snack bar
@@ -48,7 +48,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
       } else {
         // Show error message
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Failed to add comment'),
             duration: Duration(seconds: 2),
             backgroundColor: Colors.red, // Error message color
@@ -62,7 +62,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Comment'),
+        title: const Text('Add Comment'),
         backgroundColor: Colors.teal, // Consistent color for the app bar
       ),
       body: Padding(
@@ -72,7 +72,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Add your comment below:',
                 style: TextStyle(
                   fontSize: 18,
@@ -80,10 +80,10 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                   color: Colors.teal, // Consistent text color
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Name',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.person),
@@ -95,10 +95,10 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.email),
@@ -110,10 +110,10 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _bodyController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Comment',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.comment),
@@ -125,14 +125,14 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _addComment,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:  Color.fromARGB(255, 163, 182, 184), // Consistent button color
-                  padding: EdgeInsets.symmetric(vertical: 14.0),
+                  backgroundColor:  const Color.fromARGB(255, 163, 182, 184), // Consistent button color
+                  padding: const EdgeInsets.symmetric(vertical: 14.0),
                 ),
-                child: Text('Submit', style: TextStyle(fontSize: 16)),
+                child: const Text('Submit', style: TextStyle(fontSize: 16)),
               ),
             ],
           ),

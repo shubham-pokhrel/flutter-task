@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:my_postviewer/providers/app_state.dart';
-import 'package:my_postviewer/models/post.dart';
 import 'package:provider/provider.dart';
 import 'post_details_screen.dart';
 
 class PostsListScreen extends StatefulWidget {
+  const PostsListScreen({super.key});
+
   @override
   _PostsListScreenState createState() => _PostsListScreenState();
 }
 
 class _PostsListScreenState extends State<PostsListScreen> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -31,15 +32,15 @@ class _PostsListScreenState extends State<PostsListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Posts List'),
+        title: const Text('Posts List'),
         backgroundColor: Colors.teal, // Consistent color for the app bar
       ),
       body: Consumer<AppState>(
         builder: (context, appState, child) {
           if (appState.isLoading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (appState.posts.isEmpty) {
-            return Center(child: Text('No posts found'));
+            return const Center(child: Text('No posts found'));
           } else {
             return Column(
               children: [
@@ -47,7 +48,7 @@ class _PostsListScreenState extends State<PostsListScreen> {
                   padding: const EdgeInsets.all(16.0),
                   child: TextField(
                     controller: _searchController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Search',
                       border: OutlineInputBorder(),
                       prefixIcon:
@@ -65,14 +66,14 @@ class _PostsListScreenState extends State<PostsListScreen> {
                       itemBuilder: (context, index) {
                         final post = appState.posts[index];
                         return Card(
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                               vertical: 8, horizontal: 16),
                           elevation: 4.0, // Elevation for card shadow
                           child: ListTile(
-                            contentPadding: EdgeInsets.all(16.0),
+                            contentPadding: const EdgeInsets.all(16.0),
                             title: Text(
                               post.title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.teal, // Text color
                               ),
